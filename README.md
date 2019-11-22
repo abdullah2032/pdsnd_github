@@ -5,7 +5,9 @@
 python code for analyzing the Bikeshare data
 
 ### Description
-Describe what your project is about and what it does
+this code is designed to analyze the data provided about the Bike industry in three different cities: new york, washington and chicago.
+and provides a discriptive statistics about the industry in each city by using the provided csv files.
+the program could also be extended to other cities after slight modifications on the code it the csv files are provided for the desired city. 
 
 ### Files used
 Include the files used
