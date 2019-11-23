@@ -142,14 +142,13 @@ def station_stats(df):
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
+    # display most commonly used end station
+    most_common_end_station = df['End Station'].mode()[0]
+    print('The most common end station is: {}'. format(most_common_end_station))
 
     # display most commonly used start station
     most_common_start_station = df['Start Station'].mode()[0]
     print('The most common start station is: {}' .format(most_common_start_station))
-
-    # display most commonly used end station
-    most_common_end_station = df['End Station'].mode()[0]
-    print('The most common end station is: {}'. format(most_common_end_station))
 
     # create a new column for start and end station combined, the hash symbol '#' is used to split the start and end station when needed
     Combined_Start_End_Station = df['Start Station'] +'#'+ df['End Station']
