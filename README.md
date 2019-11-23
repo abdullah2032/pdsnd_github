@@ -17,4 +17,8 @@ washington.csv which contains the raw data for Washington city
 README.md which is this file
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
+1. The course itself
+2. Pandas Library
+3. Stack overflow
+4. https://github.com/jupyter/help/issues/91
+5. https://stackoverflow.com/questions/49188960/how-to-show-all-of-columns-name-on-pandas-dataframe/49189503
