@@ -191,17 +191,17 @@ def user_stats(df, city):
     print('Count of user types are:\n{}\n' .format(user_types))
 
     # to filter the city that doesn't have this column
-    if 'Gender' in df.columns:
-    # Display counts of gender
-        gender_count = df['Gender'].value_counts()
-        print(gender_count)
-        print()
-
-    # to filter the city that doesn't have this column
     if 'Birth Year' in df.columns:
     # Display earliest, most recent, and most common year of birth
         birth_years = df['Birth Year'].dropna().astype('int64')
         print('The earliest birth year is: {}\nThe most resent birth year is: {}\nThe most common birth year is: {}' .format(birth_years.min(), birth_years.max(), birth_years.mode()[0]))
+        print()
+
+    # to filter the city that doesn't have this column
+    if 'Gender' in df.columns:
+    # Display counts of gender
+        gender_count = df['Gender'].value_counts()
+        print(gender_count)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
