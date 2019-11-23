@@ -28,19 +28,19 @@ def get_filters():
 
     # list of months to be used to ensure currect user input in the while loop
     months = ['all', 'january', 'february', 'march', 'april', 'may', 'june']
-    
+
     # list of months to be used to ensure currect user input in the while loop
     days = ['all', 'saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday']
-    
+
     # get user input for city (chicago, new york city, washington)
     city = input("Please choose the city you want to explore its data\n").lower()
-    
+
     # get user input for month (all, january, february, ... , june)
     month = input("For which month do you want the data ?, or write 'all' for all months\n").lower()
-    
+
     # get user input for day of week (all, monday, tuesday, ... sunday)
     day = input("Please choose the day of the week you desire, or write 'all' for all days\n").lower()
-    
+
     # this loop is used to make sure the user input for city, month and day is correct, it's condition is True only if one of them is not correct
     while city not in cities or month not in months or day not in days:
         if city not in cities:
@@ -73,7 +73,7 @@ def load_data(city, month, day):
 
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
-    
+
     # extract month, day of week, and hour from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
@@ -98,51 +98,51 @@ def time_stats(df, month, day):
 
     """
     Displays statistics on the most frequent times of travel.
-    
+
     Args:
     (str) month - name of the month chosen by the user
     (str) day - name of the day of week chosen by the user
     """
-    
+
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
-    
+
     # display the most common month if the user didn't choose a certain month
-    
+
     if month == 'all':
         most_common_month = df['month'].mode()[0]
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         print('The most common month is {}'.format(months[most_common_month-1].title()))
-        
+
     # display the most common month if the user chose a certain month
     else:
         print("The most common month couldn't be calculated, as the data is already filtered to show {} values only".format(month.title()))
-        
-        
+
+
     # display the most common day of week if the user didn't choose a certain day
     if day == 'all':
         most_common_day = df['day_of_week'].mode()[0]
         print('The most common day of week is {}'.format(most_common_day.title()))
-        
+
     # display the most common day of week if the user didn't choose a certain day
     else:
         print("The most common day of week couldn't be calculated, as the data is already filtered to show {} values only".format(day.title()))
-    
+
     # display the most common start hour
     most_common_hour = df['hour'].mode()[0]
     print('The most common hour is {}\n' .format(most_common_hour))
-    
+
     # printing the time it took to calculate most common month, day and hour
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
-    
+
+
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
-    
+
     # display most commonly used start station
     most_common_start_station = df['Start Station'].mode()[0]
     print('The most common start station is: {}' .format(most_common_start_station))
@@ -153,7 +153,7 @@ def station_stats(df):
 
     # create a new column for start and end station combined, the hash symbol '#' is used to split the start and end station when needed
     Combined_Start_End_Station = df['Start Station'] +'#'+ df['End Station']
-    
+
     # display most frequent combination of start station and end station trip
     most_frequent_combination_of_stations = Combined_Start_End_Station.mode()[0].split('#')
     print('The most frequent combination of start and end station is: \nStart Station: {}\nEnd Station: {}' .format(most_frequent_combination_of_stations[0],most_frequent_combination_of_stations[1]))
@@ -167,15 +167,15 @@ def trip_duration_stats(df):
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
-    
+
     # display total travel time
     total_travel_time = df['Trip Duration'].sum()
     print('The total  travel  time is: {} seconds' .format(total_travel_time))
-    
+
     # display mean travel time
     mean_trip_duration = df['Trip Duration'].mean()
     print('The average trip duration is: {} seconds' .format(mean_trip_duration))
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -202,7 +202,7 @@ def user_stats(df, city):
     # Display earliest, most recent, and most common year of birth
         birth_years = df['Birth Year'].dropna().astype('int64')
         print('The earliest birth year is: {}\nThe most resent birth year is: {}\nThe most common birth year is: {}' .format(birth_years.min(), birth_years.max(), birth_years.mode()[0]))
-        
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -210,25 +210,25 @@ def df_printing_func(df):
     # n is the number of raws to be printed, by dafault it's 5
     n = 5
     while True:
-        
+
         display(df.head(n))
         more_raws = input('\nDo you want to print more raws ? Enter yes or no.\n')
         if more_raws.lower() != 'yes':
             break
         #if the user types yes, number of raws increase by 5 to print 5 more raws
         n = n + 5
-        
-        
+
+
 def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-        
+
         time_stats(df, month, day)
-        station_stats(df)
         trip_duration_stats(df)
+        station_stats(df)
         user_stats(df, city)
-        
+
         df_printing_func(df)
         df.head()
         restart = input('\nWould you like to restart? Enter yes or no.\n')
@@ -238,4 +238,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-    
